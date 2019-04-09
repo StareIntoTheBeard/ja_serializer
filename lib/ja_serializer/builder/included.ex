@@ -50,17 +50,6 @@ defmodule JaSerializer.Builder.Included do
   defp relationships_with_include(context) do
     context.data
     |> context.serializer.relationships(context.conn)
-    |> Enum.filter(fn {rel_name, rel_definition} ->
-      case context[:opts][:include] do
-        # if `include` param is not present only return 'default' includes
-        nil ->
-          rel_definition.include == true
-
-        # otherwise only include requested includes
-        includes ->
-          is_list(includes[rel_name])
-      end
-    end)
   end
 
   # Find resources for relationship & parent_context
